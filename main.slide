@@ -1,0 +1,144 @@
+# Writing tests with dependency injection
+
+Melvin Davis
+13 April 2024
+melvin.davis@dezerv.in
+
+## Format
+- Three usecases
+- How to structure your code
+- How to write the test
+
+
+##  Usecase - Third-party Services
+- Internal Services
+  - We have around 19 services
+- Vendor Services
+  - We have around 39 services
+- Most of our internal flows and end customer flows have dependencies
+
+##  Usecase - Third-party Services
+
+**Typical Usecase**
+
+.play -edit ./third-party-services/typical-usecase/main.go /^func GetKycStatus/,/^}/ HL1
+
+##  Usecase - Third-party Services
+**A better approach**
+
+- Controllers - only request handling
+- Services - core business logic
+- Repository - all database / third-party service logic
+
+## Usecase - Third-party Services
+**Controller**
+
+.play -edit ./third-party-services/better-structure/main.go /^func GetKycStatusController/,/^}/ HL1
+
+## Usecase - Third-party Services
+**Service**
+
+.code -edit ./third-party-services/better-structure/main.go /START SERVICE1/,/END SERVICE1/ HL1
+
+## Usecase - Third-party Services
+**Service - Cont.**
+
+.code -edit ./third-party-services/better-structure/main.go /START SERVICE2/,/END SERVICE2/ HL1
+
+## Usecase - Third-party Services
+**Repository**
+
+.code -edit ./third-party-services/better-structure/main.go /START REPOSITORY/,/END REPOSITORY/ HL1
+
+## Usecase - Third-party Services
+**Testcase definition**
+
+.code -edit ./third-party-services/testing-bit/main.go /START TESTCASEBASE/,/END TESTCASEBASE/ HL1
+
+## Usecase - Third-party Services
+**Mock provider**
+
+.code -edit ./third-party-services/testing-bit/main.go /START MOCK/,/END MOCK/ HL1
+
+## Usecase - Third-party Services
+**Test setup**
+
+.code -edit ./third-party-services/testing-bit/main.go /START TESTSETUP/,/END TESTSETUP/ HL1
+
+## Usecase - Third-party Services
+**Running test**
+
+.play -edit ./third-party-services/testing-bit/main.go /START RUNTEST/,/END RUNTEST/ HL1
+
+##  Usecase - Batch Processing
+- We have to process a lot of doucments on a daily basis
+- Lot of these processes are indepentent and can be run parallely
+
+##  Usecase - Batch Processing
+**Typical Usecase**
+
+.play -edit ./batch/typical-usecase/main.go  /START EVERYTHING/,/END EVERYTHING/ HL1
+
+##  Usecase - Batch Processing
+**Batch Executor**
+
+.code -edit ./batch/better-structure/main.go  /START EXECUTOR/,/END EXECUTOR/ HL1
+
+##  Usecase - Batch Processing
+**Batch Executor Implementation**
+
+.code -edit ./batch/better-structure/main.go  /START EXECUTORIMP/,/END EXECUTORIMP/ HL1
+
+##  Usecase - Batch Processing
+**In action**
+
+.play -edit ./batch/better-structure/main.go  /START MAIN/,/END MAIN/ HL1
+
+## Usecase -Batch Processing
+**Running benchmark**
+
+.play -edit ./batch/testing-bit/main.go /START RUNTEST/,/END RUNTEST/ HL1
+
+##  Usecase - PII Storage
+- Our data needs to be secure
+- Our communications needs to be secure
+- Can't spill secrets in logs my mistake
+
+##  Usecase - PII Storage
+
+**Typical Usecase**
+
+.play -edit ./pii/typical-usecase/main.go  /START EVERYTHING/,/END EVERYTHING/ HL1
+
+##  Usecase - PII Storage
+
+**A better approach**
+
+.code -edit ./pii/better-structure/main.go  /START ENCRYPTPROVIDER/,/END ENCRYPTPROVIDER/ HL1
+
+##  Usecase - PII Storage
+
+**PII implementation**
+
+.code -edit ./pii/better-structure/main.go  /START PIIDEF/,/END PIIDEF/ HL1
+
+##  Usecase - PII Storage
+
+**PII in action**
+
+.play -edit ./pii/better-structure/main.go  /START MAIN/,/END MAIN/ HL1
+
+## Usecase - PII Storage
+**Testcase definition**
+
+.code -edit ./pii/testing-bit/main.go /START TESTCASEBASE/,/END TESTCASEBASE/ HL1
+
+## Usecase - PII Storage
+**Mock provider**
+
+.code -edit ./pii/testing-bit/main.go /START MOCK/,/END MOCK/ HL1
+
+## Usecase - PII Storage
+**Running test**
+
+.play -edit ./pii/testing-bit/main.go /START RUNTEST/,/END RUNTEST/ HL1
